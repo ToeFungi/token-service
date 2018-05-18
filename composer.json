@@ -1,0 +1,21 @@
+{
+  "name": "toefungi/fungi-token-service",
+  "description": "JWT Token generator and validator",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alex Pickering",
+      "email": "alexp@curve.group"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "ToeFungi\\OTP\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=5.4"
+  }
+}
