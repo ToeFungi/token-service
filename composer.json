@@ -12,10 +12,13 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "ToeFungi\\OTP\\": "src/"
+      "ToeFungi\\Token\\": "src/"
     }
   },
   "require": {
-    "php": ">=5.4"
+    "php": ">=5.6.4",
+    "laravel/lumen-framework": "5.4.*",
+    "vlucas/phpdotenv": "~2.2",
+    "lcobucci/jwt": "3.2"
   }
 }
