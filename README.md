@@ -4,14 +4,14 @@ Protect endpoints using JWT tokens for authentication
 #### Register Service Provider
 Register the service provider in the `bootstrap/app.php`
 ```php
-$app->register(App\Providers\TokenServiceProvider::class);
+$app->register(ToeFungi\Token\Laravel\Providers\TokenServiceProvider::class);
 ```
 
 #### Register Middleware
 Register the middleware authentication layer in the `bootstrap/app.php`
 ```php
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    'auth' => ToeFungi\Token\Laravel\Middleware\TokenAuthentication::class,
 ]);
 ```
 
@@ -20,7 +20,7 @@ Example of an endpoint that is protected. Ensure it uses the `auth` middleware l
 ```php
 $app->get('/protected', [
     'middleware' => 'auth',
-    'uses' => 'TokenController@protectedEndpoint'
+    'uses' => 'Controller@protectedEndpoint'
 ]);
 ```
 #### Environment Variables
