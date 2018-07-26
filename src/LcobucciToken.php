@@ -38,10 +38,14 @@ class LcobucciToken implements TokenService
         return $token->sign($this->signer, $this->keychain->getPrivateKey(getenv('TOKEN_PRIV_KEY')))->getToken();
     }
 
-    public function validateToken(string $bearerToken): Bool
+    public function validateToken(string $bearerToken = null): Bool
     {
+        if (is_null($bearerToken)) {
+            return false;
+        }
+
         try {
-            $this->token = (new Parser())->parse($bearerToken); // Parses from a string
+            $this->token = (new Parser())->parse($bearerToken);
         } catch (Exception $exception) {
             return false;
         }

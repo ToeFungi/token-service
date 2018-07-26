@@ -13,10 +13,10 @@ interface TokenService
     /**
      * Validate a JWT token
      *
-     * @param string $bearerToken
+     * @param string|null $bearerToken
      * @return bool
      */
-    public function validateToken(string $bearerToken): Bool;
+    public function validateToken(string $bearerToken = null): Bool;
 
     /**
      * Get a claim set on the token
