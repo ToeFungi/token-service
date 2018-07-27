@@ -1,14 +1,15 @@
 <?php namespace ToeFungi\Token;
 
-interface TokenService
+interface ITokenService
 {
     /**
      * Generate a JWT token with specified payload
      *
-     * @param array $args
+     * @param array $claims
+     * @param array $headers
      * @return String
      */
-    public function generateToken(array $args = []): String;
+    public function generateToken(array $claims = [], array $headers = []): String;
 
     /**
      * Validate a JWT token
@@ -25,4 +26,11 @@ interface TokenService
      * @return String
      */
     public function getClaim(string $key): String;
+
+    /**
+     * Get all claims from the token
+     *
+     * @return array
+     */
+    public function getClaims(): array;
 }

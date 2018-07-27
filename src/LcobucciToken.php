@@ -9,19 +9,44 @@ use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
-class LcobucciToken implements TokenService
+class LcobucciToken implements ITokenService
 {
-    protected $auth, $data, $signer, $keychain, $token;
+    /**
+     * @var ValidationData $data
+     */
+    protected $data;
 
+    /**
+     * @var Token $token
+     */
+    protected $token;
+
+    /**
+     * @var Sha256 $signer
+     */
+    protected $signer;
+
+    /**
+     * @var Keychain $keychain
+     */
+    protected $keychain;
+
+    /**
+     * LcobucciToken constructor.
+     * @param ValidationData $data
+     * @param Sha256 $signer
+     * @param Keychain $keychain
+     * @param Token $token
+     */
     public function __construct(ValidationData $data, Sha256 $signer, Keychain $keychain, Token $token)
     {
         $this->data = $data;
+        $this->token = $token;
         $this->signer = $signer;
         $this->keychain = $keychain;
-        $this->token = $token;
     }
 
-    public function generateToken(array $args = null): String
+    public function generateToken(array $claims = null, array $headers = null): String
     {
         $token = (new Builder())
             ->setIssuer(getenv('TOKEN_ISS'))
@@ -29,9 +54,15 @@ class LcobucciToken implements TokenService
             ->setIssuedAt(time())
             ->setExpiration(time() + (int) getenv('TOKEN_LIFESPAN'));
 
-        if (!is_null($args)) {
-            foreach ($args as $key => $value) {
+        if (!is_null($claims)) {
+            foreach ($claims as $key => $value) {
                 $token->set($key, $value);
+            }
+        }
+
+        if (!is_null($headers)) {
+            foreach ($headers as $key => $value) {
+                $token->setHeader($key, $value);
             }
         }
 
@@ -62,5 +93,10 @@ class LcobucciToken implements TokenService
     public function getClaim(string $key): String
     {
         return $this->token->getClaim($key);
+    }
+
+    public function getClaims(): array
+    {
+        return $this->token->getClaims();
     }
 }

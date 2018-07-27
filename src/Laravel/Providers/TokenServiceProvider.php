@@ -7,26 +7,52 @@ use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
-use ToeFungi\Token\TokenService;
+use ToeFungi\Token\ITokenService;
 use ToeFungi\Token\LcobucciToken;
 
 class TokenServiceProvider extends ServiceProvider
 {
-    public function register()
-    {
-        $this->app->singleton(TokenService::class, function () {
-            $token = new Token();
-            $signer = new Sha256();
-            $keychain = new Keychain();
-            $data = new ValidationData();
+    /**
+     * @var Token $token
+     */
+    protected $token;
 
+    /**
+     * @var Sha256 $signer
+     */
+    protected $signer;
+
+    /**
+     * @var Keychain $keychain
+     */
+    protected $keychain;
+
+    /**
+     * @var ValidationData $data
+     */
+    protected $data;
+
+    /**
+     * @param Token $token
+     * @param Sha256 $signer
+     * @param Keychain $keychain
+     * @param ValidationData $data
+     */
+    public function boot(Token $token, Sha256 $signer, Keychain $keychain, ValidationData $data)
+    {
+        $this->data = $data;
+        $this->token = $token;
+        $this->signer = $signer;
+        $this->keychain = $keychain;
+
+        $this->app->singleton(ITokenService::class, function () {
             $tokenAud = getenv('TOKEN_AUD') ?: '';
             $tokenIss = getenv('TOKEN_ISS') ?: '';
 
-            $data->setIssuer($tokenIss);
-            $data->setAudience($tokenAud);
+            $this->data->setIssuer($tokenIss);
+            $this->data->setAudience($tokenAud);
 
-            return new LcobucciToken($data, $signer, $keychain, $token);
+            return new LcobucciToken($this->data, $this->signer, $this->keychain, $this->token);
         });
     }
 }
