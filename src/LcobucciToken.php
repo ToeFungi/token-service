@@ -25,7 +25,7 @@ class LcobucciToken implements TokenService
     {
         $token = (new Builder())
             ->setIssuer(getenv('TOKEN_ISS'))
-            ->setAudience(getenv('TOKEN_AUDIENCE'))
+            ->setAudience(getenv('TOKEN_AUD'))
             ->setIssuedAt(time())
             ->setExpiration(time() + (int) getenv('TOKEN_LIFESPAN'));
 
