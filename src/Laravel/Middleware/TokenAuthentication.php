@@ -2,20 +2,20 @@
 
 use Closure;
 use Illuminate\Http\Response;
-use ToeFungi\Token\ITokenService;
+use ToeFungi\Token\TokenService;
 
 class TokenAuthentication
 {
     /**
-     * @var ITokenService
+     * @var TokenService
      */
     private $tokenService;
 
     /**
      * Authenticate constructor.
-     * @param ITokenService $tokenService
+     * @param TokenService $tokenService
      */
-    public function __construct(ITokenService $tokenService)
+    public function __construct(TokenService $tokenService)
     {
         $this->tokenService = $tokenService;
     }

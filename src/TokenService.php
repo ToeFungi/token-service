@@ -1,6 +1,6 @@
 <?php namespace ToeFungi\Token;
 
-interface ITokenService
+interface TokenService
 {
     /**
      * Generate a JWT token with specified payload

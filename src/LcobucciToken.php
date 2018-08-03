@@ -9,7 +9,7 @@ use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
-class LcobucciToken implements ITokenService
+class LcobucciToken implements TokenService
 {
     /**
      * @var ValidationData $data

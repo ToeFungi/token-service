@@ -7,7 +7,7 @@ use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
-use ToeFungi\Token\ITokenService;
+use ToeFungi\Token\TokenService;
 use ToeFungi\Token\LcobucciToken;
 
 class TokenServiceProvider extends ServiceProvider
@@ -45,7 +45,7 @@ class TokenServiceProvider extends ServiceProvider
         $this->signer = $signer;
         $this->keychain = $keychain;
 
-        $this->app->singleton(ITokenService::class, function () {
+        $this->app->singleton(TokenService::class, function () {
             $tokenAud = getenv('TOKEN_AUD') ?: '';
             $tokenIss = getenv('TOKEN_ISS') ?: '';
 
