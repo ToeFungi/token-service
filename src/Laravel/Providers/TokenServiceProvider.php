@@ -8,7 +8,7 @@ use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
 
 use ToeFungi\Token\TokenService;
-use ToeFungi\Token\LcobucciToken;
+use ToeFungi\Token\Lcobucci\LcobucciToken;
 
 class TokenServiceProvider extends ServiceProvider
 {

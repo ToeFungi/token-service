@@ -1,4 +1,4 @@
-<?php namespace ToeFungi\Token;
+<?php namespace ToeFungi\Token\Lcobucci;
 
 use Exception;
 
@@ -8,6 +8,8 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\ValidationData;
 use Lcobucci\JWT\Signer\Keychain;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
+
+use ToeFungi\Token\TokenService;
 
 class LcobucciToken implements TokenService
 {
